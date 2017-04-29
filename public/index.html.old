@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/jquery-3.2.1.min.js"></script>  
+    <script src="control.js"></script> 
+    <style>
+    html, body{
+        margin: 0;
+        height: 100%
+    }
+
+    #map {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        display: block;
+        position: absolute;
+    }
+    
+    #scoreboard{
+        margin: auto;
+        top: 15vh;
+        height: 70%;
+        width: 70%;
+        position: relative;
+        background-color: #888;
+        opacity: 0.4;
+        visibility: hidden;
+        text-align: center;
+    }
+    </style>
+  </head>
+  <body onkeydown="body_onkeydown(event)">
+    <div id="map"></div>
+    <div id="scoreboard">
+        <h1>Hi YDD</h1>
+    </div>
+    <script>
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+
+              var flightPlanCoordinates = [
+          {lat: 37.772, lng: -122.214},
+          {lat: 21.291, lng: -157.821},
+          {lat: -18.142, lng: 178.431},
+          {lat: -27.467, lng: 153.027}
+        ];
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+      }
+
+
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR0g4MkXZz4QPygN3fuqbCJFKzZSr5MrQ&callback=initMap">
+    </script>
+  </body>
+</html>
