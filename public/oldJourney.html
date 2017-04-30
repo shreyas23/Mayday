@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>  
-    <script type="text/javascript" src="control.js"></script> 
+  	
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/icomoon.css" media="screen" />
+	<link rel="stylesheet" href="css/magnificpopup.css" media="screen" />
+	<link rel="stylesheet" href="css/columns.min.css" media="screen" />
+	<link rel="stylesheet" href="style.css" media="screen" />
+	<link rel="stylesheet" href="css/patients-style.css" media="screen" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <style>
     html, body{
         margin: 0;
-        height: 100%
+        height: 0%
     }
 
     #map {
@@ -15,7 +21,7 @@
         width: 100%;
         display: block;
         position: absolute;
-        top: 0;
+        text-align: center;
     }
     
     #scoreboard{
@@ -32,8 +38,7 @@
     </style>
   </head>
   <body onkeydown="body_onkeydown(event)">
-    
-    <scripts>	
+  	<scripts>	
   	<div class="nav-right visible-xs">
   			<div class="button" id="btn">
     			<div class="bar top"></div>
@@ -69,12 +74,12 @@
         <h1 style="font-size: 99px; color: white;">Hi YDD</h1>
     </div>
     <script>
-        function initMap() {
+function initMap() {
           
         var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 11,
-          center: sanFrancisco
+          mapTypeId: 'satellite'
         });
 
 
@@ -393,5 +398,39 @@ setInterval(function() {
     <script type="text/javascript" async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR0g4MkXZz4QPygN3fuqbCJFKzZSr5MrQ&callback=initMap&libraries=visualization">
     </script>
-  </body>
+    
+</body>
+<script>
+$(document).ready(function() {
+
+  function toggleSidebar() {
+    $(".button").toggleClass("active");
+    $("main").toggleClass("move-to-left");
+    $(".sidebar").toggleClass("show");
+    $(".sidebar-item").toggleClass("active");
+   
+  }
+
+  $(".button").on("click tap", function() {
+    toggleSidebar();
+    
+  });
+
+  $(document).keyup(function(e) {
+    if (e.keyCode === 27) {
+      toggleSidebar();
+    }
+  });
+
+});
+////--$(function () {
+  //  $("#.sidebar-item").on("click", function () {
+     //   $("#main").load("journey.html");
+   // });
+   // $("#.sidebar-item").on("click", function () {
+   //     $("#main").load("journey.html");
+   // });
+//});
+</script>
+  
 </html>
