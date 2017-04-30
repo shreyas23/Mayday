@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	
-    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/icomoon.css" media="screen" />
-	<link rel="stylesheet" href="css/magnificpopup.css" media="screen" />
-	<link rel="stylesheet" href="css/columns.min.css" media="screen" />
-	<link rel="stylesheet" href="style.css" media="screen" />
-	<link rel="stylesheet" href="css/patients-style.css" media="screen" />
+  <script src="control.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <style>
     html, body{
@@ -22,6 +16,7 @@
         display: block;
         position: absolute;
         text-align: center;
+        top: 0;
     }
     
     #scoreboard{
@@ -30,49 +25,26 @@
         height: 70%;
         width: 70%;
         position: relative;
-        background-color: #888;
-        opacity: 0.4;
-        visibility: hidden;
+        background-color: white;
+        opacity: 0.7;
+        visibility: visible;
         text-align: center;
+        top: 0;
     }
+
     </style>
   </head>
   <body onkeydown="body_onkeydown(event)">
-  	<scripts>	
-  	<div class="nav-right visible-xs">
-  			<div class="button" id="btn">
-    			<div class="bar top"></div>
-    			<div class="bar middle"></div>
-    			<div class="bar bottom"></div>
-  			</div>
-		</div>
-<!-- nav-right -->
-		<main>
-			<nav>
-    			<div class="nav-right hidden-xs">
-      				<div class="button" id="btn">
-        				<div class="bar top"></div>
-        				<div class="bar middle"></div>
-        				<div class="bar bottom"></div>
-      				</div>
-    			</div>
-    <!-- nav-right -->
-  			</nav>
-		</main>
-			<div id="map"></div>
-			<div class="sidebar">
- 				<ul class="sidebar-list">
-   					<li class="sidebar-item" id = "#1"> <a href="index.html" class="sidebar-anchor">Home</a></li>	
- 	  				<li class="sidebar-item" id = "#2"> <a href="journey.html" class="sidebar-anchor">Map</a></li>
-   					<li class="sidebar-item" id = "#3"> <a href="About.html" class="sidebar-anchor">About</a></li>
- 				</ul>
-			</div>
-		
-		</scripts>
-    
-    <div id="scoreboard">
-        <h1 style="font-size: 99px; color: white;">Hi YDD</h1>
+
+		<div id="map"></div>
+    <div id="scoreboard" style="font-size: 15px; width:30%; background-color:white; float:right; text-align:right; padding-left:15px;">
+        <h1 id="longitude" style="color:white;">Longitude: 0</h1>
+        <h1 id="latitude" style="color:white;">Latitude: 0</h1>
+        <h1 id="attitude" style="color:white;">Attitude: </h1>
     </div>
+    <!--<div id="databoard" style="float:right; width:30%; height:300px;background-color:white;text-align:left;">
+        Some
+    </div>-->
     <script>
 function initMap() {
           
@@ -288,6 +260,106 @@ var xcord =
 41.986406081226,
 41.97859955];
 
+var attitude = 
+[5.1816,
+106.129784,
+307.026152,
+607.870704,
+1008.66344,
+1509.40436,
+2110.093464,
+2810.730752,
+3611.316224,
+4511.84988,
+5512.33172,
+6412.865376,
+7213.450848,
+7914.088136,
+8514.77724,
+9015.51816,
+9416.310896,
+9717.155448,
+9918.051816,
+10019,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+10000,
+9902.048256,
+9706.144768,
+9412.289536,
+9020.48256,
+8530.72384,
+7943.013376,
+7257.351168,
+6473.737216,
+5592.17152,
+4612.65408,
+3731.088384,
+2947.474432,
+2261.812224,
+1674.10176,
+1184.34304,
+792.536064,
+498.680832,
+302.777344,
+204.8256];
+
 
     var flightPath; /*= new google.maps.Polyline({
           path: flightPlanCoordinates,
@@ -305,6 +377,7 @@ var lastPointx;    //197 coordinates after fence case
 //12.656000137329,55.617900848389
 lastPointx = 12.656000137329;
 var lastPointy = 55.617900848389;
+var lastPointh = attitude[0];
 /*
 [
           {lat: 37.772, lng: -122.214},
@@ -325,6 +398,7 @@ setInterval(function() {
     if(movementTracker % moveDiv === 0) {
       lastPointx = xcord[movementTracker / moveDiv - 1];
       lastPointy = ycord[movementTracker / moveDiv - 1];
+      lastPointh = attitude[movementTracker / moveDiv - 1];
     }
 
     /*
@@ -342,9 +416,10 @@ setInterval(function() {
           map : map
         });
         */
-    var x,y;
+    var x, y, h;
     x = (xcord[movementTracker / moveDiv] - lastPointx) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointx;
     y = (ycord[movementTracker / moveDiv] - lastPointy) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointy;
+    h = (attitude[movementTracker / moveDiv] - lastPointh) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointh;
     if (isNaN(x))
       return;
     cityCircle = new google.maps.Circle({
@@ -389,6 +464,13 @@ setInterval(function() {
         radius: radiusHeatMap * 50
     });
     }
+
+
+    // Update text
+    $("#longitude").html("Longitude " + y.toFixed(2));
+    $("#latitude").html("Latitude " + x.toFixed(2));
+    $("#attitude").html("Attitude " + h.toFixed(2));
+    
 
   }, 500); // End of setInterval
 

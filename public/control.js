@@ -11,12 +11,21 @@ function body_onkeydown(e){
     {
         case 27:
         on = !on;
-        $('#scoreboard').css('visibility', on ? 'visible' : 'hidden');
+        $('#scoreboard').css('visibility', 'visible');
         break;
     }
 }
 
+function getRadiation() {
+    $.get({
+        url: '/radiation'
+    }).done(function(data) {
+        console.log(data);
+    }).fail(function(err) {
+        console.log('Failed', err);
+    });
+}
+
 $(document).ready(function () {
-
-
+    getRadiation();
 });

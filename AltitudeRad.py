@@ -40,6 +40,13 @@ clf.fit(X_, vector)
 print(clf.predict(predict_))
 plt.plot(clf.predict(predict_))
 
+def main() {
+    return clf.predict(predict_))
+}
+
+if __name__ == "__main__":
+    main();
+
 """
 plt.ion()
 n_observations = len(month)
