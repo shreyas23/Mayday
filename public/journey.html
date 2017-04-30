@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	
-    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/icomoon.css" media="screen" />
-	<link rel="stylesheet" href="css/magnificpopup.css" media="screen" />
-	<link rel="stylesheet" href="css/columns.min.css" media="screen" />
-	<link rel="stylesheet" href="style.css" media="screen" />
-	<link rel="stylesheet" href="css/patients-style.css" media="screen" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>  
+    <script type="text/javascript" src="control.js"></script> 
     <style>
     html, body{
         margin: 0;
-        height: 0%
+        height: 100%
     }
 
     #map {
@@ -21,7 +15,7 @@
         width: 100%;
         display: block;
         position: absolute;
-        text-align: center;
+        top: 0;
     }
     
     #scoreboard{
@@ -38,7 +32,8 @@
     </style>
   </head>
   <body onkeydown="body_onkeydown(event)">
-  	<scripts>	
+    
+    <scripts>	
   	<div class="nav-right visible-xs">
   			<div class="button" id="btn">
     			<div class="bar top"></div>
@@ -313,7 +308,8 @@ var lastPointy = 55.617900848389;
           {lat: -27.467, lng: 153.027}
         ];
 */
-
+var heatmap;
+var cityCircle;
 setInterval(function() {
   if(!locationReached && movementTracker === 97) {
     locationReached = true;
@@ -325,6 +321,7 @@ setInterval(function() {
       lastPointx = xcord[movementTracker / moveDiv - 1];
       lastPointy = ycord[movementTracker / moveDiv - 1];
     }
+
     /*
     flightPath = new google.maps.Polyline({
           path: [{lat: (xcord[(movementTracker - 1) / moveDiv] - lastPointx) * 1.0 * ((movementTracker - 1) % moveDiv) / moveDiv + lastPointx,
@@ -343,83 +340,58 @@ setInterval(function() {
     var x,y;
     x = (xcord[movementTracker / moveDiv] - lastPointx) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointx;
     y = (ycord[movementTracker / moveDiv] - lastPointy) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointy;
-    var cityCircle = new google.maps.Circle({
+    if (isNaN(x))
+      return;
+    cityCircle = new google.maps.Circle({
       fillColor: '#000000',
       fillOpacity: 1.0,
       map: map,
       center: new google.maps.LatLng(x, y),
       radius: 100
     });
+    //cityCircle.setCenter(new google.maps.LatLng(x, y));
     console.log("triggered", x, y);
 
     // Heatmap
     var radiusH = 500; // Radius of heatmap
+    var radiusHeatMap = Math.abs(x) * 0.007;
+    var radiusHeatMapCorner = radiusHeatMap * 0.8
+    var rateOfChange = Math.min(movementTracker, 92) * 0.003;
     var heatMapData = [
-  {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
-              new google.maps.LatLng(37.782, -122.445),
-  {location: new google.maps.LatLng(37.782, -122.443), weight: 2},
-  {location: new google.maps.LatLng(37.782, -122.441), weight: 3},
-  {location: new google.maps.LatLng(37.782, -122.439), weight: 2},
-  new google.maps.LatLng(37.782, -122.437),
-  {location: new google.maps.LatLng(37.782, -122.435), weight: 0.5},
+    {location: new google.maps.LatLng(x, y), weight: rateOfChange},
+    {location: new google.maps.LatLng(x , y + radiusHeatMap), weight: rateOfChange},
+    {location: new google.maps.LatLng(x, y + radiusHeatMap / 2), weight: rateOfChange},
+    {location: new google.maps.LatLng(x + radiusHeatMapCorner, y + radiusHeatMapCorner), weight: rateOfChange},
+    {location: new google.maps.LatLng(x + radiusHeatMap, y), weight: rateOfChange},
+    {location: new google.maps.LatLng(x + radiusHeatMap / 2, y), weight: rateOfChange},
+    {location: new google.maps.LatLng(x - radiusHeatMapCorner, y + radiusHeatMapCorner), weight: rateOfChange},
+    {location: new google.maps.LatLng(x, y - radiusHeatMap), weight: rateOfChange},
+    {location: new google.maps.LatLng(x, y - radiusHeatMap / 2), weight: rateOfChange},
+    {location: new google.maps.LatLng(x + radiusHeatMapCorner, y - radiusHeatMapCorner), weight: rateOfChange},
+    {location: new google.maps.LatLng(x - radiusHeatMap, y), weight: rateOfChange},
+    {location: new google.maps.LatLng(x + radiusHeatMap / 2, y), weight: rateOfChange},
+    {location: new google.maps.LatLng(x - radiusHeatMapCorner, y - radiusHeatMapCorner), weight: rateOfChange},
+    {location: new google.maps.LatLng(x - radiusHeatMap / 2, y - radiusHeatMapCorner), weight: rateOfChange}
+    ];
 
-  {location: new google.maps.LatLng(37.785, -122.447), weight: 3},
-  {location: new google.maps.LatLng(37.785, -122.445), weight: 2},
-  new google.maps.LatLng(37.785, -122.443),
-  {location: new google.maps.LatLng(37.785, -122.441), weight: 0.5},
-  new google.maps.LatLng(37.785, -122.439),
-  {location: new google.maps.LatLng(37.785, -122.437), weight: 2},
-  {location: new google.maps.LatLng(37.785, -122.435), weight: 3}
-];
+    
 
-var heatmap = new google.maps.visualization.HeatmapLayer({
-  data: heatMapData,
-  map: map
-});
-  }
-}, 300);
+    if (heatmap && !locationReached)
+        heatmap.setMap(null);
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatMapData,
+        map: map
+    });
+    }
 
+  }, 500); // End of setInterval
 
-};
+}; // End of initMap
 
 
     </script>
     <script type="text/javascript" async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR0g4MkXZz4QPygN3fuqbCJFKzZSr5MrQ&callback=initMap&libraries=visualization">
     </script>
-    
-</body>
-<script>
-$(document).ready(function() {
-
-  function toggleSidebar() {
-    $(".button").toggleClass("active");
-    $("main").toggleClass("move-to-left");
-    $(".sidebar").toggleClass("show");
-    $(".sidebar-item").toggleClass("active");
-   
-  }
-
-  $(".button").on("click tap", function() {
-    toggleSidebar();
-    
-  });
-
-  $(document).keyup(function(e) {
-    if (e.keyCode === 27) {
-      toggleSidebar();
-    }
-  });
-
-});
-////--$(function () {
-  //  $("#.sidebar-item").on("click", function () {
-     //   $("#main").load("journey.html");
-   // });
-   // $("#.sidebar-item").on("click", function () {
-   //     $("#main").load("journey.html");
-   // });
-//});
-</script>
-  
+  </body>
 </html>
