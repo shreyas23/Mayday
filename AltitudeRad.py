@@ -1,9 +1,7 @@
 """ Take in some array of altitudes at some time in chronological 
 order and output an array of TID values as time passes"""
-import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
-import tflearn
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn import linear_model
 
@@ -40,9 +38,8 @@ clf.fit(X_, vector)
 print(clf.predict(predict_))
 plt.plot(clf.predict(predict_))
 
-def main() {
-    return clf.predict(predict_))
-}
+def main():
+    return clf.predict(predict_)
 
 if __name__ == "__main__":
     main();
