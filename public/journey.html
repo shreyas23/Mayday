@@ -355,7 +355,7 @@ setInterval(function() {
     // Heatmap
     var radiusH = 500; // Radius of heatmap
     var radiusHeatMap = Math.abs(x) * 0.007;
-    var radiusHeatMapCorner = radiusHeatMap * 0.8
+    var radiusHeatMapCorner = radiusHeatMap * 1.0
     var rateOfChange = Math.min(movementTracker, 92) * 0.003;
     var heatMapData = [
     {location: new google.maps.LatLng(x, y), weight: rateOfChange},
@@ -380,7 +380,8 @@ setInterval(function() {
         heatmap.setMap(null);
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatMapData,
-        map: map
+        map: map,
+        radius: 100
     });
     }
 
