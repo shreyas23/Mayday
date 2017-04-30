@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/icomoon.css" media="screen" />
+	<link rel="stylesheet" href="css/magnificpopup.css" media="screen" />
+	<link rel="stylesheet" href="css/columns.min.css" media="screen" />
+	<link rel="stylesheet" href="style.css" media="screen" />
+	<link rel="stylesheet" href="css/patients-style.css" media="screen" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <style>
+    html, body{
+        margin: 0;
+        height: 0%
+    }
+
+    #map {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        display: block;
+        position: absolute;
+        text-align: center;
+    }
+    
+    #scoreboard{
+        margin: auto;
+        top: 15vh;
+        height: 70%;
+        width: 70%;
+        position: relative;
+        background-color: #888;
+        opacity: 0.4;
+        visibility: hidden;
+        text-align: center;
+    }
+    </style>
+  </head>
+  <body onkeydown="body_onkeydown(event)">
+  	<scripts>	
+  	<div class="nav-right visible-xs">
+  			<div class="button" id="btn">
+    			<div class="bar top"></div>
+    			<div class="bar middle"></div>
+    			<div class="bar bottom"></div>
+  			</div>
+		</div>
+<!-- nav-right -->
+		<main>
+			<nav>
+    			<div class="nav-right hidden-xs">
+      				<div class="button" id="btn">
+        				<div class="bar top"></div>
+        				<div class="bar middle"></div>
+        				<div class="bar bottom"></div>
+      				</div>
+    			</div>
+    <!-- nav-right -->
+  			</nav>
+		</main>
+			<div id="map"></div>
+			<div class="sidebar">
+ 				<ul class="sidebar-list">
+   					<li class="sidebar-item" id = "#1"> <a href="index.html" class="sidebar-anchor">Home</a></li>	
+ 	  				<li class="sidebar-item" id = "#2"> <a href="journey.html" class="sidebar-anchor">Map</a></li>
+   					<li class="sidebar-item" id = "#3"> <a href="About.html" class="sidebar-anchor">About</a></li>
+ 				</ul>
+			</div>
+		
+		</scripts>
+    
+    <div id="scoreboard">
+        <h1>Hi YDD</h1>
+    </div>
+    <script>
+        function initMap() {
+          
+        var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 11,
+          center: sanFrancisco
+        });
+
+
+        var ctaLayer = new google.maps.KmlLayer({
+          url: 'http://mstanimasa.com/files/flight.kml',
+          map: map
+        });
+
+var ycord = [
+12.63471049113,
+12.613412088766,
+12.592104928002,
+12.570789006613,
+12.549464322376,
+12.528130873075,
+12.506788656499,
+12.485437670444,
+12.464077912709,
+12.442709381103,
+12.421332073436,
+12.399945987528,
+12.378551121201,
+12.357147472286,
+12.335735038617,
+12.314313818035,
+12.292883808388,
+12.271445007528,
+12.249997413314,
+12.228541023609,
+10.038145434324,
+7.7580290698347,
+5.3871466556421,
+2.9253697531799,
+0.37365970226088,
+-2.2657643996731,
+-4.989274873161,
+-6.3810134511093,
+-7.7917162390052,
+-9.2204882369851,
+-10.666333278845,
+-12.128155422503,
+-13.60476160495,
+-15.094865612826,
+-16.597093391152,
+-18.109989680689,
+-19.632025939828,
+-21.161609471231,
+-22.697093638028,
+-24.236789020895,
+-25.778975337329,
+-27.321913919453,
+-28.863860531048,
+-30.403078278462,
+-31.937850393473,
+-33.466492647985,
+-34.987365180077,
+-36.498883531665,
+-37.999528722967,
+-39.48785621953,
+-40.962503681405,
+-42.422197419631,
+-43.865757520767,
+-45.292101634536,
+-46.700247451274,
+-48.089313923917,
+-49.458521312985,
+-50.807190151936,
+-53.440682812262,
+-55.986265335598,
+-58.44181020134,
+-60.806436493198,
+-63.080341218154,
+-65.264626402404,
+-67.361131227359,
+-69.372275717505,
+-71.300920027625,
+-73.150241350402,
+-74.923628920743,
+-76.624596503899,
+-78.256711054954,
+-79.823535847208,
+-81.32858620671,
+-82.775295989598,
+-84.166993040907,
+-85.506882034876,
+-86.798033287057,
+-87.674414745279,
+-87.68677661184,
+-87.699134098088,
+-87.71148720678,
+-87.72383594067,
+-87.736180302514,
+-87.748520295064,
+-87.760855921074,
+-87.773187183294,
+-87.785514084475,
+-87.797836627368,
+-87.810154814722,
+-87.822468649287,
+-87.834778133816,
+-87.84708327106,
+-87.85938406378,
+-87.871680514742,
+-87.883972626736,
+-87.896260402617,
+-87.90480042
+];
+
+var xcord = 
+[
+55.625960855551,
+55.634017174833,
+55.642069803606,
+55.650118739237,
+55.658163979094,
+55.666205520543,
+55.67424336095,
+55.682277497677,
+55.690307928088,
+55.698334649543,
+55.706357659402,
+55.714376955025,
+55.722392533767,
+55.730404392987,
+55.738412530038,
+55.746416942274,
+55.754417627048,
+55.762414581711,
+55.770407803614,
+55.778397290104,
+56.558021601196,
+57.297545055039,
+57.994154231275,
+58.644957356881,
+59.247017126459,
+59.797391744074,
+60.293184150003,
+60.519732754509,
+60.731598756899,
+60.928458872831,
+61.110004237531,
+61.275942528402,
+61.426000070575,
+61.559923894301,
+61.677483711571,
+61.778473778683,
+61.862714611641,
+61.930054522491,
+61.980370946887,
+62.013571536384,
+62.029594993078,
+62.02841162915,
+62.010023678208,
+61.974465158155,
+61.921801676204,
+61.852129791311,
+61.765576142961,
+61.662296325087,
+61.542473528146,
+61.406316976339,
+61.25406019004,
+61.085959105576,
+60.902290085523,
+60.703347852791,
+60.489443380925,
+60.260901771459,
+60.018060146879,
+59.761265584972,
+59.207243809409,
+58.601738318475,
+57.947692084339,
+57.248040501183,
+56.505670913827,
+55.723390351008,
+54.903900997453,
+54.049782635381,
+53.163481122491,
+52.247301919966,
+51.303407709436,
+50.333819214301,
+49.340418445267,
+48.324953705544,
+47.289045806036,
+46.234195047754,
+45.161788623719,
+44.073108174255,
+42.96933729852,
+42.188307566384,
+42.177102048478,
+42.165895203962,
+42.154687033827,
+42.143477539065,
+42.132266720668,
+42.121054579626,
+42.109841116928,
+42.098626333566,
+42.087410230526,
+42.076192808799,
+42.064974069374,
+42.053754013239,
+42.042532641385,
+42.031309954802,
+42.020085954486,
+42.008860641435,
+41.997634016665,
+41.986406081226,
+41.97859955];
+
+
+    var flightPath; /*= new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+*/
+var movementTracker = 0;
+var locationReached = false;
+var lastPointx;    //197 coordinates after fence case
+//12.656000137329,55.617900848389
+lastPointx = 12.656000137329;
+var lastPointy = 55.617900848389;
+/*
+[
+          {lat: 37.772, lng: -122.214},
+          {lat: 21.291, lng: -157.821},
+          {lat: -18.142, lng: 178.431},
+          {lat: -27.467, lng: 153.027}
+        ];
+*/
+
+setInterval(function() {
+  if(!locationReached && movementTracker === 97) {
+    locationReached = true;
+  } else if(!locationReached) {
+    movementTracker++;
+
+    var moveDiv = 1;
+    if(movementTracker % moveDiv === 0) {
+      lastPointx = xcord[movementTracker / moveDiv - 1];
+      lastPointy = ycord[movementTracker / moveDiv - 1];
+    }
+    /*
+    flightPath = new google.maps.Polyline({
+          path: [{lat: (xcord[(movementTracker - 1) / moveDiv] - lastPointx) * 1.0 * ((movementTracker - 1) % moveDiv) / moveDiv + lastPointx,
+          lng: (ycord[(movementTracker - 1) / moveDiv] - lastPointy) * 1.0 * ((movementTracker - 1) % moveDiv) / moveDiv + lastPointy
+          },
+          {lat: (xcord[movementTracker / moveDiv] - lastPointx) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointx,
+          lng: (ycord[movementTracker / moveDiv] - lastPointy) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointy
+          }],
+          geodesic: true,
+          strokeColor: '#000000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+          map : map
+        });
+        */
+    var x,y;
+    x = (xcord[movementTracker / moveDiv] - lastPointx) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointx;
+    y = (ycord[movementTracker / moveDiv] - lastPointy) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointy;
+    var cityCircle = new google.maps.Circle({
+      fillColor: '#000000',
+      fillOpacity: 1.0,
+      map: map,
+      center: new google.maps.LatLng(x, y),
+      radius: 100
+    });
+    console.log("triggered", x, y);
+
+    // Heatmap
+    var radiusH = 500; // Radius of heatmap
+    var heatMapData = [
+  {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
+              new google.maps.LatLng(37.782, -122.445),
+  {location: new google.maps.LatLng(37.782, -122.443), weight: 2},
+  {location: new google.maps.LatLng(37.782, -122.441), weight: 3},
+  {location: new google.maps.LatLng(37.782, -122.439), weight: 2},
+  new google.maps.LatLng(37.782, -122.437),
+  {location: new google.maps.LatLng(37.782, -122.435), weight: 0.5},
+
+  {location: new google.maps.LatLng(37.785, -122.447), weight: 3},
+  {location: new google.maps.LatLng(37.785, -122.445), weight: 2},
+  new google.maps.LatLng(37.785, -122.443),
+  {location: new google.maps.LatLng(37.785, -122.441), weight: 0.5},
+  new google.maps.LatLng(37.785, -122.439),
+  {location: new google.maps.LatLng(37.785, -122.437), weight: 2},
+  {location: new google.maps.LatLng(37.785, -122.435), weight: 3}
+];
+
+var heatmap = new google.maps.visualization.HeatmapLayer({
+  data: heatMapData,
+  map: map
+});
+  }
+}, 300);
+
+
+};
+
+
+    </script>
+    <script type="text/javascript" async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR0g4MkXZz4QPygN3fuqbCJFKzZSr5MrQ&callback=initMap&libraries=visualization">
+    </script>
+    
+</body>
+<script>
+$(document).ready(function() {
+
+  function toggleSidebar() {
+    $(".button").toggleClass("active");
+    $("main").toggleClass("move-to-left");
+    $(".sidebar").toggleClass("show");
+    $(".sidebar-item").toggleClass("active");
+   
+  }
+
+  $(".button").on("click tap", function() {
+    toggleSidebar();
+    
+  });
+
+  $(document).keyup(function(e) {
+    if (e.keyCode === 27) {
+      toggleSidebar();
+    }
+  });
+
+});
+////--$(function () {
+  //  $("#.sidebar-item").on("click", function () {
+     //   $("#main").load("journey.html");
+   // });
+   // $("#.sidebar-item").on("click", function () {
+   //     $("#main").load("journey.html");
+   // });
+//});
+</script>
+  
+</html>

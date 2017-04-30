@@ -1,0 +1,100 @@
+{
+  "Amoxicillin":
+    [
+      {"SymptomName" : "Diarrhoea", "Percentage" : 8},
+      {"SymptomName" : "Headache", "Percentage" : 7},
+      {"SymptomName" : "Dysgeusia", "Percentage" : 5},
+      {"SymptomName" : "Vulvovaginal mycotic infection", "Percentage" : 2.61},
+      {"SymptomName" : "Nausea", "Percentage" : 1.32},
+      {"SymptomName" : "Vomiting", "Percentage" : 1.63},
+      {"SymptomName" : "Abdominal pain", "Percentage" : 0.98}
+    ],
+  "Cefaclor":
+    [
+      {"SymptomName" : "Abdominal pain", "Percentage" : 4.67},
+      {"SymptomName" : "Diarrhoea", "Percentage" : 4.08},
+      {"SymptomName" : "Headache", "Percentage" : 5.44},
+      {"SymptomName" : "Vaginal moniliasis", "Percentage" : 2.5},
+      {"SymptomName" : "Nausea", "Percentage" : 2.5},
+      {"SymptomName" : "Asthenia", "Percentage" : 3.33},
+      {"SymptomName" : "Vaginal inflammation", "Percentage" : 2.04},
+      {"SymptomName" : "Pain", "Percentage" :  2.04}
+    ],
+    "Oxycodone":
+    [
+      {"SymptomName" : "Constipation", "Percentage" : 26},
+      {"SymptomName" : "Nausea", "Percentage" : 50},
+      {"SymptomName" : "Somnolence", "Percentage" : 24},
+      {"SymptomName" : "Dizziness", "Percentage" : 16},
+      {"SymptomName" : "Pruritus", "Percentage" : 14},
+      {"SymptomName" : "Vomiting", "Percentage" : 17},
+      {"SymptomName" : "Headache", "Percentage" : 8},
+      {"SymptomName" : "Asthenia", "Percentage" : 7},
+      {"SymptomName" : "Dry mouth", "Percentage" : 7},
+      {"SymptomName" : "Sweating", "Percentage" : 6},
+      {"SymptomName" : "Insomnia", "Percentage" : 5}
+    ],
+    "Ibuprofen":
+    [
+      {"SymptomName" : "Nausea", "Percentage" : 57.5},
+      {"SymptomName" : "Apnoea", "Percentage" : 28},
+      {"SymptomName" : "Eosinophilia", "Percentage" : 23.3},
+      {"SymptomName" : "Constipation", "Percentage" : 22},
+      {"SymptomName" : "Gastrointestinal disorder", "Percentage" : 22},
+      {"SymptomName" : "Somnolence", "Percentage" : 22},
+      {"SymptomName" : "Respiratory tract infection", "Percentage" : 19},
+      {"SymptomName" : "Vomiting", "Percentage" : 22.4},
+      {"SymptomName" : "Skin lesion", "Percentage" : 16},
+      {"SymptomName" : "Intraventricular haemorrhage", "Percentage" : 29},
+      {"SymptomName" : "Bacteraemia", "Percentage" : 13.3},
+      {"SymptomName" : "Hypocalcaemia", "Percentage" : 12},
+      {"SymptomName" : "Hypoglycaemia", "Percentage" : 12},
+      {"SymptomName" : "Flatulence", "Percentage" : 16.1},
+      {"SymptomName" : "Headache", "Percentage" : 27},
+      {"SymptomName" : "Pneumonia bacterial", "Percentage" : 10},
+      {"SymptomName" : "Diarrhoea", "Percentage" : 10},
+      {"SymptomName" : "Hypoproteinaemia", "Percentage" : 10},
+      {"SymptomName" : "Lactic dehydrogenase activity increased", "Percentage" : 10},
+      {"SymptomName" : "Hypoalbuminaemia", "Percentage" : 10},
+      {"SymptomName" : "Thrombocytosis", "Percentage" : 10}
+    ],
+    "Lamotrigine":
+    [
+      {"SymptomName": "Diplopia", "Percentage": 49},
+      {"SymptomName": "Accidental injury", "Percentage": 14},
+      {"SymptomName": "Somnolence", "Percentage": 17},
+      {"SymptomName": "Vision blurred", "Percentage": 25},
+      {"SymptomName": "Ataxia", "Percentage": 28},
+      {"SymptomName": "Dizziness", "Percentage": 54},
+      {"SymptomName": "Nausea", "Percentage": 25},
+      {"SymptomName": "Pharyngitis", "Percentage": 14},
+      {"SymptomName": "Vomiting", "Percentage": 20},
+      {"SymptomName": "Back pain", "Percentage": 8},
+      {"SymptomName": "Diarrhoea", "Percentage": 11},
+      {"SymptomName": "Fatigue", "Percentage": 8},
+      {"SymptomName": "Bronchitis", "Percentage": 9},
+      {"SymptomName": "Influenza", "Percentage": 7},
+      {"SymptomName": "Rhinitis", "Percentage": 14},
+      {"SymptomName": "Cough increased", "Percentage": 8},
+      {"SymptomName": "Abdominal pain", "Percentage": 10},
+      {"SymptomName": "Body temperature increased", "Percentage": 15}
+    ],
+    "Valproate":
+    [
+      {"SymptomName": "Headache", "Percentage": 39},
+      {"SymptomName": "Nausea", "Percentage": 48},
+      {"SymptomName": "Asthenia", "Percentage": 27},
+      {"SymptomName": "Fatigue", "Percentage": 19},
+      {"SymptomName": "Tremor", "Percentage": 57},
+      {"SymptomName": "Somnolence", "Percentage": 31},
+      {"SymptomName": "Diplopia", "Percentage": 16},
+      {"SymptomName": "Vomiting", "Percentage": 27},
+      {"SymptomName": "Infection", "Percentage": 20},
+      {"SymptomName": "Diarrhoea", "Percentage": 23},
+      {"SymptomName": "Dizziness", "Percentage": 25},
+      {"SymptomName": "Thrombocytopenia", "Percentage": 24},
+      {"SymptomName": "Influenza", "Percentage": 12},
+      {"SymptomName": "Insomnia", "Percentage": 15},
+      {"SymptomName": "Anorexia", "Percentage": 12}
+    ]
+}
