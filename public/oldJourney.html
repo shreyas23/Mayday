@@ -2,7 +2,6 @@
 <html>
   <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="control.js"></script>
     <style>
     html, body{
         margin: 0;
@@ -32,6 +31,17 @@
         top: 0;
     }
 
+       #databoard{
+        margin: auto;
+        top: 25vh;
+        height: 70%;
+        width: 70%;
+        position: relative;
+        opacity: 0.4;
+        visibility: hidden;
+        text-align: center;
+    }
+
     </style>
   </head>
   <body onkeydown="body_onkeydown(event)">
@@ -42,9 +52,9 @@
         <h1 id="latitude" style="color:white;">Latitude: 0</h1>
         <h1 id="attitude" style="color:white;">Attitude: </h1>
     </div>
-    <!--<div id="databoard" style="float:right; width:30%; height:300px;background-color:white;text-align:left;">
-        Some
-    </div>-->
+    <div id="databoard">
+        <h1 style="font-size: 99px; color: white;">Hi YDD</h1>
+    </div>
     <script>
 function initMap() {
           
@@ -361,16 +371,7 @@ var attitude =
 204.8256];
 
 
-    var flightPath; /*= new google.maps.Polyline({
-          path: flightPlanCoordinates,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-
-        flightPath.setMap(map);
-*/
+var flightPath;
 var movementTracker = 0;
 var locationReached = false;
 var lastPointx;    //197 coordinates after fence case
@@ -378,14 +379,6 @@ var lastPointx;    //197 coordinates after fence case
 lastPointx = 12.656000137329;
 var lastPointy = 55.617900848389;
 var lastPointh = attitude[0];
-/*
-[
-          {lat: 37.772, lng: -122.214},
-          {lat: 21.291, lng: -157.821},
-          {lat: -18.142, lng: 178.431},
-          {lat: -27.467, lng: 153.027}
-        ];
-*/
 var heatmap;
 var cityCircle;
 setInterval(function() {
@@ -400,22 +393,6 @@ setInterval(function() {
       lastPointy = ycord[movementTracker / moveDiv - 1];
       lastPointh = attitude[movementTracker / moveDiv - 1];
     }
-
-    /*
-    flightPath = new google.maps.Polyline({
-          path: [{lat: (xcord[(movementTracker - 1) / moveDiv] - lastPointx) * 1.0 * ((movementTracker - 1) % moveDiv) / moveDiv + lastPointx,
-          lng: (ycord[(movementTracker - 1) / moveDiv] - lastPointy) * 1.0 * ((movementTracker - 1) % moveDiv) / moveDiv + lastPointy
-          },
-          {lat: (xcord[movementTracker / moveDiv] - lastPointx) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointx,
-          lng: (ycord[movementTracker / moveDiv] - lastPointy) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointy
-          }],
-          geodesic: true,
-          strokeColor: '#000000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-          map : map
-        });
-        */
     var x, y, h;
     x = (xcord[movementTracker / moveDiv] - lastPointx) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointx;
     y = (ycord[movementTracker / moveDiv] - lastPointy) * 1.0 * (movementTracker % moveDiv) / moveDiv + lastPointy;
@@ -429,8 +406,6 @@ setInterval(function() {
       center: new google.maps.LatLng(x, y),
       radius: 100
     });
-    //cityCircle.setCenter(new google.maps.LatLng(x, y));
-    console.log("triggered", x, y);
 
     // Heatmap
     var radiusH = 500; // Radius of heatmap
@@ -453,8 +428,6 @@ setInterval(function() {
     {location: new google.maps.LatLng(x - radiusHeatMapCorner, y - radiusHeatMapCorner), weight: rateOfChange},
     {location: new google.maps.LatLng(x - radiusHeatMap / 2, y - radiusHeatMapCorner), weight: rateOfChange}
     ];
-
-    
 
     if (heatmap && !locationReached)
         heatmap.setMap(null);
@@ -506,14 +479,26 @@ $(document).ready(function() {
   });
 
 });
-////--$(function () {
-  //  $("#.sidebar-item").on("click", function () {
-     //   $("#main").load("journey.html");
-   // });
-   // $("#.sidebar-item").on("click", function () {
-   //     $("#main").load("journey.html");
-   // });
-//});
+</script>
+
+<script>
+  var on = false;
+
+function body_onkeydown(e){
+    var key;
+    if (window.event)
+        key = window.event.keyCode;
+    else if (e)
+        key = e.which;
+
+    switch (key)
+    {
+        case 27:
+        on = !on;
+        $('#databoard').css('visibility', on ? 'visible' : 'hidden');
+        break;
+    }
+}
 </script>
   
 </html>
