@@ -1,7 +1,9 @@
 """ Take in some array of altitudes at some time in chronological 
 order and output an array of TID values as time passes"""
+import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn import preprocessing
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn import linear_model
 
@@ -18,45 +20,20 @@ october = [83.34, 77.63, 78.13, 70.29, 67.89, 67.89, 66.97, 68.38, 77.34]
 november = [84.43, 86.31, 77.41, 71.95, 68.19, 66.38, 65.12, 68.92, 78.49]
 december = [84.71, 87.03, 76.69, 73.9, 69.9, 64.48, 62.11, 68.68, 78.93]
 
-month = february  # user input
+month = march  # user input
 
 plt.ion()
-X = [[x] for x in list(range(len(month)))]
-vector = month
-predict = [[x] for x in list(range(len(month) + 3))]
-
-plt.title("february")
-plt.plot(X, vector)
-plt.show()
-
-poly = PolynomialFeatures(degree=3)
-X_ = poly.fit_transform(X)
-predict_ = poly.fit_transform(predict)
-clf = linear_model.LinearRegression()
-clf.fit(X_, vector)
-
-print(clf.predict(predict_))
-plt.plot(clf.predict(predict_))
-
-def main():
-    return clf.predict(predict_)
-
-if __name__ == "__main__":
-    main();
-
-"""
-plt.ion()
-n_observations = len(month)
+n_occurrences = 50
+plt.title("March")
 fig, ax = plt.subplots(1, 1)
-xs = np.array(range(len(month)))
-print(xs)
-ys = np.array(month)
-print(ys)
+xs_un = np.array(range(len(march)))
+ys_un = np.array(march)
+xs = preprocessing.scale(xs_un)
+ys = preprocessing.scale(ys_un)
 ax.scatter(xs, ys)
-#fig.show()
-#plt.draw()
+fig.show()
+plt.draw()
 
-# variables which we need to fill in when we are ready to compute the graph.
 X = tf.placeholder(tf.float32)
 Y = tf.placeholder(tf.float32)
 
@@ -65,13 +42,14 @@ for pow_i in range(1, 5):
     W = tf.Variable(tf.random_normal([1]), name='weight_%d' % pow_i)
     Y_pred = tf.add(tf.multiply(tf.pow(X, pow_i), W), Y_pred)
 
-# %% Loss function will measure the distance between our observations
-# and predictions and average over them.
-cost = tf.reduce_sum(tf.pow(Y_pred - Y, 2)) / (n_observations - 1)
+cost = tf.reduce_sum(tf.pow(Y_pred - Y, 2)) / (n_occurrences - 1)
 
-learning_rate = 0.01
+
+#Use gradient descent to optimize W,b
+learning_rate = 0.1
 optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
+# We create a session to use the graph
 n_epochs = 1000
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
@@ -84,8 +62,6 @@ with tf.Session() as sess:
 
         training_cost = sess.run(
             cost, feed_dict={X: xs, Y: ys})
-        print({X: xs})
-        print({Y: ys})
         print(training_cost)
 
         if epoch_i % 100 == 0:
@@ -95,16 +71,38 @@ with tf.Session() as sess:
             fig.show()
             plt.draw()
 
-        # Allow the training to quit if we've reached a minimum
+            # Allow the training to quit if we've reached a minimum
         if np.abs(prev_training_cost - training_cost) < 0.000001:
             break
         prev_training_cost = training_cost
-ax.set_ylim([-3, 3])
-fig.show()
-plt.waitforbuttonpress()
+    x_tests = [12.0,13.0,14.0,15.0]
+    print(Y_pred.eval(feed_dict={X: x_tests}, session=sess))
+    sess.close()
+
 """
+#SCIKIT-LEARN overfit or underfit data, nothing in between
+plt.ion()
+X = [[x] for x in list(range(len(month)))]
+vector = month
+predict = [[x] for x in list(range(len(month) + 1))]
+
+plt.title("February")
+plt.plot(X, vector)
+plt.ylim(60, 80)
+plt.show()
+
+poly = PolynomialFeatures(degree=3)
+X_ = poly.fit_transform(X)
+predict_ = poly.fit_transform(predict)
+clf = linear_model.LinearRegression()
+clf.fit(X_, vector)
+
+print(clf.predict(predict_))
+plt.plot(clf.predict(predict_))
+
+
 # Linear Regression -- results were not accurate enough
-"""
+
 input_ = tflearn.input_data(shape=[None])
 linear = tflearn.single_unit(input_)
 regression = tflearn.regression(linear, optimizer='sgd', loss='mean_square',
